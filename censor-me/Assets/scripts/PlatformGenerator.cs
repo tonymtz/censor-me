@@ -8,7 +8,7 @@ public class PlatformGenerator : MonoBehaviour {
 	private float distanceBetween;
 
 	private GameObject oldPlatform;
-	private float minY, maxY, lastYUsed, initialY = -10f;
+	private float minY, maxY, lastYUsed, initialY = -5f;
 
 	// Use this for initialization
 	void Start () {

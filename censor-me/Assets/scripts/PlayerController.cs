@@ -22,7 +22,8 @@ public class PlayerController : MonoBehaviour
 	private Animator myAnimator;
 	private bool canShoot;
 	private float timeLeft;
-	private float atackCooldown = 0.1f;
+	private float atackCooldown = 0.25f;
+    private GameInputController inputController;
 
     // Use this for initialization
     void Start()
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
         myRigidBody = GetComponent<Rigidbody2D>();
 		myAnimator = GetComponent<Animator> ();
 		canShoot = true;
+        inputController = GameObject.FindGameObjectWithTag("InputController").GetComponent<GameInputController>();
     }
 
     void FixedUpdate()
@@ -50,13 +52,13 @@ public class PlayerController : MonoBehaviour
 		}
 
 		// Jump
-		if ((Input.GetKeyDown(KeyCode.Z) || Input.GetMouseButtonDown(0)) && isGrounded)
+		if ((Input.GetKeyDown(KeyCode.Z) || inputController.IsJumping()) && isGrounded)
 		{
 			myRigidBody.velocity = new Vector2(myRigidBody.velocity.x, jumpForce);
 		}
 
 		// Shoot
-		if ((Input.GetKeyDown(KeyCode.M) || Input.GetMouseButtonDown(1)) && canShoot) {
+		if ((Input.GetKeyDown(KeyCode.M) || inputController.IsShooting()) && canShoot) {
 			GameObject aBullet = (GameObject)Instantiate (newBullet);
 
 			aBullet.transform.position = new Vector3 (myRigidBody.position.x + 4f, myRigidBody.position.y - 4f, 1f);
