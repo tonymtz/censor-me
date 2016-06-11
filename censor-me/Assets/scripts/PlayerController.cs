@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,34 +11,75 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     [SerializeField]
     private LayerMask whatIsGround;
+	[SerializeField]
+	private GameObject newBullet;
+	[SerializeField]
+	private LayerMask[] whatIsEnemy;
+	[SerializeField]
+	private Collider2D groundDetector;
 
     private Rigidbody2D myRigidBody;
-    private Collider2D myCollider;
+	private Animator myAnimator;
+	private bool canShoot;
+	private float timeLeft;
+	private float atackCooldown = 0.1f;
 
     // Use this for initialization
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
-        myCollider = GetComponent<Collider2D>();
+		myAnimator = GetComponent<Animator> ();
+		canShoot = true;
     }
 
     void FixedUpdate()
     {
         myRigidBody.velocity = new Vector2(moveSpeed, myRigidBody.velocity.y);
-
-        // Jump
-        if ((Input.GetKeyDown(KeyCode.Z) || Input.GetMouseButtonDown(0)) && isGrounded)
-        {
-            myRigidBody.velocity = new Vector2(myRigidBody.velocity.x, jumpForce);
-        }
-
-        // Shoot
-        if (Input.GetKeyDown(KeyCode.M) || Input.GetMouseButtonDown(1)) { }
     }
 
     // Update is called once per frame
     void Update()
     {
-        isGrounded = Physics2D.IsTouchingLayers(myCollider, whatIsGround);
+		isGrounded = Physics2D.IsTouchingLayers (groundDetector, whatIsGround);
+		myAnimator.SetBool ("isJumping", !isGrounded);
+
+		timeLeft -= Time.deltaTime;
+
+		if (timeLeft < 0) {
+			canShoot = true;
+		}
+
+		// Jump
+		if ((Input.GetKeyDown(KeyCode.Z) || Input.GetMouseButtonDown(0)) && isGrounded)
+		{
+			myRigidBody.velocity = new Vector2(myRigidBody.velocity.x, jumpForce);
+		}
+
+		// Shoot
+		if ((Input.GetKeyDown(KeyCode.M) || Input.GetMouseButtonDown(1)) && canShoot) {
+			GameObject aBullet = (GameObject)Instantiate (newBullet);
+
+			aBullet.transform.position = new Vector3 (myRigidBody.position.x + 4f, myRigidBody.position.y - 4f, 1f);
+
+			canShoot = false;
+			timeLeft = atackCooldown;
+		}
     }
+
+	void OnCollisionEnter2D(Collision2D collider) {
+		// layer 11 - Enemy
+		if (collider.gameObject.layer == 11) {
+			Die ();
+		}
+	}
+
+	void Die() {
+		// basically restart the scene
+		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
+	}
+
+	public float GetWidth()
+	{
+		return GetComponent<Renderer>().bounds.size.x;
+	}
 }
