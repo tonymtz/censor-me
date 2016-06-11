@@ -70,7 +70,12 @@
     <Compile Include="Assets\scripts\BackgroundScroll.cs" />
     <Compile Include="Assets\scripts\BulletController.cs" />
     <Compile Include="Assets\scripts\CameraController.cs" />
+    <Compile Include="Assets\scripts\CoinController.cs" />
+    <Compile Include="Assets\scripts\CoinSpawner.cs" />
     <Compile Include="Assets\scripts\EnemyController.cs" />
+    <Compile Include="Assets\scripts\EnemyHornSkullController.cs" />
+    <Compile Include="Assets\scripts\EnemyRedZombieController.cs" />
+    <Compile Include="Assets\scripts\EnemyZombieController.cs" />
     <Compile Include="Assets\scripts\GameInputController.cs" />
     <Compile Include="Assets\scripts\PlatformController.cs" />
     <Compile Include="Assets\scripts\PlatformGenerator.cs" />

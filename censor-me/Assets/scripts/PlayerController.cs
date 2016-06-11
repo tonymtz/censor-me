@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
 	private Animator myAnimator;
 	private bool canShoot;
 	private float timeLeft;
-	private float atackCooldown = 0.25f;
     private GameInputController inputController;
 
     // Use this for initialization
@@ -45,12 +44,6 @@ public class PlayerController : MonoBehaviour
 		isGrounded = Physics2D.IsTouchingLayers (groundDetector, whatIsGround);
 		myAnimator.SetBool ("isJumping", !isGrounded);
 
-		timeLeft -= Time.deltaTime;
-
-		if (timeLeft < 0) {
-			canShoot = true;
-		}
-
 		// Jump
 		if ((Input.GetKeyDown(KeyCode.Z) || inputController.IsJumping()) && isGrounded)
 		{
@@ -60,20 +53,26 @@ public class PlayerController : MonoBehaviour
 		// Shoot
 		if ((Input.GetKeyDown(KeyCode.M) || inputController.IsShooting()) && canShoot) {
 			GameObject aBullet = (GameObject)Instantiate (newBullet);
-
 			aBullet.transform.position = new Vector3 (myRigidBody.position.x + 4f, myRigidBody.position.y - 4f, 1f);
-
 			canShoot = false;
-			timeLeft = atackCooldown;
 		}
+
+        // release sooter
+        if (!inputController.IsShooting()) {
+            canShoot = true;
+        }
     }
 
 	void OnCollisionEnter2D(Collision2D collider) {
 		// layer 11 - Enemy
-		if (collider.gameObject.layer == 11) {
+        // layer 12 - Bounds
+        // layer 13 - Coin
+		if (collider.gameObject.layer == 11 || collider.gameObject.layer == 12) {
 			Die ();
-		}
-	}
+		} else if (collider.gameObject.layer == 13) {
+            Destroy(collider.gameObject);
+        }
+    }
 
 	void Die() {
 		// basically restart the scene

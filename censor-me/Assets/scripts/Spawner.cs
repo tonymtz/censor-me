@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Spawner : Timer {
 	[SerializeField]
-	private GameObject baseObject;
+	private GameObject[] baseObjects;
 	[SerializeField]
 	private float delay;
 	
@@ -18,7 +18,8 @@ public class Spawner : Timer {
 	}
 
 	private GameObject CreateEnemy() {
-		return (GameObject)Instantiate (baseObject);
+        int index = Random.Range(0, baseObjects.Length);
+		return (GameObject)Instantiate (baseObjects[index]);
 	}
 
 	private GameObject CreateEnemy(float x, float y, float z) {
