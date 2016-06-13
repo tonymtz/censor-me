@@ -16,7 +16,7 @@ public class Spawner : Timer {
 	
 	public override void Callback () {
 		Vector2 max = UnityEngine.Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
-		CreateEnemy (max.x, max.y, 1f);
+		CreateEnemy (max.x, max.y, 0.5f);
 	}
 
 	private GameObject CreateEnemy() {
