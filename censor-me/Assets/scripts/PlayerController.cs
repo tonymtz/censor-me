@@ -22,7 +22,8 @@ public class PlayerController : MonoBehaviour
 	private Animator myAnimator;
 	private bool canShoot;
 	private float timeLeft;
-    private GameInputController inputController;
+    private InputController inputController;
+    private GameController gameController;
 
     // Use this for initialization
     void Start()
@@ -30,12 +31,13 @@ public class PlayerController : MonoBehaviour
         myRigidBody = GetComponent<Rigidbody2D>();
 		myAnimator = GetComponent<Animator> ();
 		canShoot = true;
-        inputController = GameObject.FindGameObjectWithTag("InputController").GetComponent<GameInputController>();
+        inputController = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>();
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
     }
 
     void FixedUpdate()
     {
-        myRigidBody.velocity = new Vector2(moveSpeed, myRigidBody.velocity.y);
+        myRigidBody.velocity = new Vector2(moveSpeed + gameController.GameSpeed(), myRigidBody.velocity.y);
     }
 
     // Update is called once per frame

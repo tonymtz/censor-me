@@ -8,7 +8,7 @@ using System.Collections;
  * both     - 11
  */
 
-public class GameInputController : MonoBehaviour {
+public class InputController : MonoBehaviour {
     enum Button {
         SHOOT,
         JUMP
