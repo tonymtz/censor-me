@@ -11,6 +11,7 @@ public class GameController : Timer {
     private float gameSpeed;
     public bool hasGameStarted { get; set; }
     public bool isGameOver { get; set; }
+    private AudioManager audioManager;
 
     // Use this for initialization
     override public void Start() {
@@ -23,6 +24,8 @@ public class GameController : Timer {
         timeLeft = timeOut;
         // TMP
         hasGameStarted = true;
+        audioManager = AudioManager.Instance;
+        audioManager.PlayGameMusic();
     }
 
     public override void Callback() {
@@ -40,14 +43,21 @@ public class GameController : Timer {
     public void Pause() {
         Time.timeScale = 0;
         pauseCanvas.SetActive(true);
+        audioManager.PauseGameMusic();
     }
 
     public void Play() {
         Time.timeScale = 1;
         pauseCanvas.SetActive(false);
+        audioManager.ResumeGameMusic();
     }
 
     public void Exit() {
         UnityEngine.SceneManagement.SceneManager.LoadScene("main_menu");
+    }
+
+    public void MenuClickSFX() {
+        audioManager.PlayMenuSFX();
+        audioManager.ToggleMute();
     }
 }

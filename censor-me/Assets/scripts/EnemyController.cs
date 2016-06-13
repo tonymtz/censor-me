@@ -4,11 +4,13 @@ public class EnemyController : MonoBehaviour {
     private Transform myTransform;
     private Animator myAnimator;
     private bool isDead;
+    private AudioManager audioManager;
 
     // Use this for initialization
     void Start () {
         myTransform = GetComponent<Transform>();
         myAnimator = GetComponent<Animator>();
+        audioManager = AudioManager.Instance;
     }
 
     void FixedUpdate()
@@ -39,6 +41,8 @@ public class EnemyController : MonoBehaviour {
     }
 
     void Die() {
+        audioManager.PlayDeathSFX();
+
         isDead = true;
         myAnimator.SetBool("isDead", true);
 

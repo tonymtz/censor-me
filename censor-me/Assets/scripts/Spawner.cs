@@ -6,8 +6,10 @@ public class Spawner : Timer {
 	private GameObject[] baseObjects;
 	[SerializeField]
 	private float delay;
-	
-	public override void Start () {
+    [SerializeField]
+    private AudioManager audioManager;
+
+    public override void Start () {
 		timeOut = delay;
 		base.Start ();
 	}
@@ -19,8 +21,8 @@ public class Spawner : Timer {
 
 	private GameObject CreateEnemy() {
         int index = Random.Range(0, baseObjects.Length);
-		return (GameObject)Instantiate (baseObjects[index]);
-	}
+        return (GameObject)Instantiate (baseObjects[index]);
+    }
 
 	private GameObject CreateEnemy(float x, float y, float z) {
 		GameObject newObject = CreateEnemy ();

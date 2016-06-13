@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private InputController inputController;
     private GameController gameController;
     private int coins;
+    private AudioManager audioManager;
 
     // Use this for initialization
     void Start()
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
 		canShoot = true;
         inputController = GameObject.FindGameObjectWithTag("InputController").GetComponent<InputController>();
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        audioManager = AudioManager.Instance;
     }
 
     void FixedUpdate()
@@ -55,10 +57,11 @@ public class PlayerController : MonoBehaviour
 
 		// Shoot
 		if ((Input.GetKeyDown(KeyCode.M) || inputController.IsShooting()) && canShoot) {
-			GameObject aBullet = (GameObject)Instantiate (newBullet);
+            GameObject aBullet = (GameObject)Instantiate (newBullet);
 			aBullet.transform.position = new Vector3 (myRigidBody.position.x + 4f, myRigidBody.position.y - 4f, 1f);
 			canShoot = false;
-		}
+            audioManager.PlayShootSFX();
+        }
 
         // release sooter
         if (!inputController.IsShooting()) {
@@ -75,6 +78,7 @@ public class PlayerController : MonoBehaviour
 		} else if (collider.gameObject.layer == 13) {
             coins++;
             Destroy(collider.gameObject);
+            audioManager.PlayCoinSFX();
         }
     }
 
