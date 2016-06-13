@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
 	private float timeLeft;
     private InputController inputController;
     private GameController gameController;
+    private int coins;
 
     // Use this for initialization
     void Start()
@@ -72,6 +73,7 @@ public class PlayerController : MonoBehaviour
 		if (collider.gameObject.layer == 11 || collider.gameObject.layer == 12) {
 			Die ();
 		} else if (collider.gameObject.layer == 13) {
+            coins++;
             Destroy(collider.gameObject);
         }
     }
@@ -81,8 +83,11 @@ public class PlayerController : MonoBehaviour
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 	}
 
-	public float GetWidth()
-	{
+	public float GetWidth() {
 		return GetComponent<Renderer>().bounds.size.x;
 	}
+
+    public int GetCoins() {
+        return coins;
+    }
 }

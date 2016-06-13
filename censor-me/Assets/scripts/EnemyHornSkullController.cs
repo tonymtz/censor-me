@@ -9,18 +9,22 @@ public class EnemyHornSkullController : Timer {
 
     private bool isGoingLeft;
     private Rigidbody2D myRigidBody;
+    private EnemyController enemyController;
 
     // Use this for initialization
     public override void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
+        enemyController = GetComponent<EnemyController>();
         timeOut = turnDelay;
         base.Start();
     }
 
     public override void Callback()
     {
-        Turn();
+        if (!enemyController.IsDead()) {
+            Turn();
+        }
     }
 
     void Turn()

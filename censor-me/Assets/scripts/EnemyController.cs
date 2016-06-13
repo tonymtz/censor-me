@@ -3,6 +3,7 @@
 public class EnemyController : MonoBehaviour {
     private Transform myTransform;
     private Animator myAnimator;
+    private bool isDead;
 
     // Use this for initialization
     void Start () {
@@ -38,6 +39,7 @@ public class EnemyController : MonoBehaviour {
     }
 
     void Die() {
+        isDead = true;
         myAnimator.SetBool("isDead", true);
 
         GetComponent<Collider2D>().enabled = false;
@@ -50,5 +52,9 @@ public class EnemyController : MonoBehaviour {
         if (mySpawner) {
             mySpawner.Spawn(myRigidBody.position.x, myRigidBody.position.y, 1f);
         }
+    }
+
+    public bool IsDead() {
+        return isDead;
     }
 }
