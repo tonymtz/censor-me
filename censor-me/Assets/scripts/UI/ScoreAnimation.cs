@@ -12,9 +12,10 @@ public class ScoreAnimation : Timer {
     private Text globalScoreText;
     [SerializeField]
     private GameObject highScoreLabel;
+    [SerializeField]
+    private GameController gameController;
 
     private AudioManager audioManager;
-    private GameController gameController;
     private int sessionScore;
     private int globalScore;
     private bool showNewHighLabel;
@@ -30,7 +31,6 @@ public class ScoreAnimation : Timer {
 
         // init
         audioManager = AudioManager.Instance;
-        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 
         timeOut = 99f;
     }

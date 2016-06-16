@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
@@ -28,6 +29,11 @@ class UserProfile {
             saveFile.Close();
         } else {
             data = new Stats();
+        }
+
+        if (data.WorldsOwned == null) {
+            data.WorldsOwned = new List<World>();
+            data.WorldsOwned.Add(World.BASIC);
         }
 
         return data;

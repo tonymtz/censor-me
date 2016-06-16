@@ -86,7 +86,10 @@
     <Compile Include="Assets\scripts\Spawner.cs" />
     <Compile Include="Assets\scripts\Stats.cs" />
     <Compile Include="Assets\scripts\Timer.cs" />
+    <Compile Include="Assets\scripts\UI\GlobalScoreController.cs" />
     <Compile Include="Assets\scripts\UI\ScoreAnimation.cs" />
+    <Compile Include="Assets\scripts\UI\StoreController.cs" />
+    <Compile Include="Assets\scripts\UI\WorldPanel.cs" />
     <Compile Include="Assets\scripts\UserProfile.cs" />
     <Compile Include="Assets\vendor\Gamestrap UI\Effects\GamestrapEffect.cs" />
     <Compile Include="Assets\vendor\Gamestrap UI\Effects\GradientEffect.cs" />
