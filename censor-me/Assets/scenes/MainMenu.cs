@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 
 public class MainMenu : MonoBehaviour {
+    [SerializeField]
+    private bool autoPlayMusic;
     private AudioManager audioManager;
 
     void Start() {
         audioManager = AudioManager.Instance;
-        audioManager.PlayMenuMusic();
+        if (autoPlayMusic) {
+            audioManager.PlayMenuMusic();
+        }
     }
 
     public void MenuClickSFX() {
@@ -33,8 +37,6 @@ public class MainMenu : MonoBehaviour {
                 nextWorld = "play_zombies";
                 break;
         }
-
-        Debug.Log(UserProfile.LoadData().WorldSelected);
 
         UnityEngine.SceneManagement.SceneManager.LoadScene(nextWorld);
     }

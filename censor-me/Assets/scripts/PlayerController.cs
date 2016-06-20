@@ -47,11 +47,6 @@ public class PlayerController : MonoBehaviour
 		isGrounded = Physics2D.IsTouchingLayers (groundDetector, whatIsGround);
 		myAnimator.SetBool ("isJumping", !isGrounded);
 
-        // Instakill
-        if (Input.GetKeyDown(KeyCode.C)) {
-            Die();
-        }
-
         // Jump
         if ((Input.GetKeyDown(KeyCode.Z) || inputController.IsJumping()) && isGrounded)
 		{
