@@ -17,5 +17,5 @@ public class Stats {
 }
 
 public enum World {
-    BASIC, ZOMBIES, BIRDS, MONSTERS
+    BASIC, ZOMBIES, TRUMP, MONSTERS
 }

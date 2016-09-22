@@ -27,8 +27,8 @@ public class MainMenu : MonoBehaviour {
         string nextWorld = "play_basic";
 
         switch(UserProfile.LoadData().WorldSelected) {
-            case World.BIRDS:
-                nextWorld = "play_birds";
+            case World.TRUMP:
+                nextWorld = "play_trump";
                 break;
             case World.MONSTERS:
                 nextWorld = "play_monsters";
